@@ -10,6 +10,9 @@ import ArtistProfile from "./pages/ArtistProfile";
 import Booking from "./pages/Booking";
 import Masterclasses from "./pages/Masterclasses";
 import Dashboard from "./pages/Dashboard";
+import CustomerSignup from "./pages/CustomerSignup";
+import ArtistSignup from "./pages/ArtistSignup";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +29,9 @@ const App = () => (
           <Route path="/booking/:artistId" element={<Booking />} />
           <Route path="/masterclasses" element={<Masterclasses />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/signup/customer" element={<CustomerSignup />} />
+          <Route path="/signup/artist" element={<ArtistSignup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

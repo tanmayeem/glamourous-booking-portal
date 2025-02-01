@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,25 +10,25 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <h1 className="font-serif text-2xl text-glamour-dark">
+            <Link to="/" className="font-serif text-2xl text-glamour-dark">
               GlamConnect
-            </h1>
+            </Link>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="font-sans text-glamour-dark hover:text-glamour-pink transition-colors">
+            <Link to="/" className="font-sans text-glamour-dark hover:text-glamour-pink transition-colors">
               Home
-            </a>
-            <a href="#" className="font-sans text-glamour-dark hover:text-glamour-pink transition-colors">
+            </Link>
+            <Link to="/search" className="font-sans text-glamour-dark hover:text-glamour-pink transition-colors">
               Book Artists
-            </a>
-            <a href="#" className="font-sans text-glamour-dark hover:text-glamour-pink transition-colors">
+            </Link>
+            <Link to="/masterclasses" className="font-sans text-glamour-dark hover:text-glamour-pink transition-colors">
               Masterclasses
-            </a>
-            <button className="bg-gradient-glamour text-white px-6 py-2 rounded-full font-sans hover:opacity-90 transition-opacity">
+            </Link>
+            <Link to="/login" className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-6 py-2 rounded-full font-sans transition-all duration-300">
               Sign In
-            </button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -46,27 +47,30 @@ const Navigation = () => {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white">
-            <a
-              href="#"
+            <Link
+              to="/"
               className="block px-3 py-2 text-glamour-dark hover:text-glamour-pink font-sans"
             >
               Home
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/search"
               className="block px-3 py-2 text-glamour-dark hover:text-glamour-pink font-sans"
             >
               Book Artists
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to="/masterclasses"
               className="block px-3 py-2 text-glamour-dark hover:text-glamour-pink font-sans"
             >
               Masterclasses
-            </a>
-            <button className="w-full mt-4 bg-gradient-glamour text-white px-6 py-2 rounded-full font-sans hover:opacity-90 transition-opacity">
+            </Link>
+            <Link
+              to="/login"
+              className="block w-full mt-4 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-6 py-2 rounded-full font-sans text-center"
+            >
               Sign In
-            </button>
+            </Link>
           </div>
         </div>
       )}
