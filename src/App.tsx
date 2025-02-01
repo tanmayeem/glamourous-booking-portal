@@ -9,7 +9,8 @@ import SearchArtists from "./pages/SearchArtists";
 import ArtistProfile from "./pages/ArtistProfile";
 import Booking from "./pages/Booking";
 import Masterclasses from "./pages/Masterclasses";
-import Dashboard from "./pages/Dashboard";
+import CustomerDashboard from "./pages/CustomerDashboard";
+import ArtistDashboard from "./pages/ArtistDashboard";
 import CustomerSignup from "./pages/CustomerSignup";
 import ArtistSignup from "./pages/ArtistSignup";
 import Login from "./pages/Login";
@@ -28,7 +29,8 @@ const App = () => (
           <Route path="/artist/:id" element={<ArtistProfile />} />
           <Route path="/booking/:artistId" element={<Booking />} />
           <Route path="/masterclasses" element={<Masterclasses />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/customer" element={<CustomerDashboard />} />
+          <Route path="/dashboard/artist" element={<ArtistDashboard />} />
           <Route path="/signup/customer" element={<CustomerSignup />} />
           <Route path="/signup/artist" element={<ArtistSignup />} />
           <Route path="/login" element={<Login />} />
