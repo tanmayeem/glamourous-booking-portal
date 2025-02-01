@@ -9,6 +9,7 @@ import SearchArtists from "./pages/SearchArtists";
 import ArtistProfile from "./pages/ArtistProfile";
 import Booking from "./pages/Booking";
 import Masterclasses from "./pages/Masterclasses";
+import CreateMasterclass from "./pages/CreateMasterclass";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import ArtistDashboard from "./pages/ArtistDashboard";
 import CustomerSignup from "./pages/CustomerSignup";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/artist/:id" element={<ArtistProfile />} />
           <Route path="/booking/:artistId" element={<Booking />} />
           <Route path="/masterclasses" element={<Masterclasses />} />
+          <Route path="/masterclasses/create" element={<CreateMasterclass />} />
           <Route path="/dashboard/customer" element={<CustomerDashboard />} />
           <Route path="/dashboard/artist" element={<ArtistDashboard />} />
           <Route path="/signup/customer" element={<CustomerSignup />} />
