@@ -10,16 +10,18 @@ import {
   PlusCircle,
   CheckCircle,
   XCircle,
+  CreditCard,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-<<<<<<< HEAD
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
+import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "../context/Authcontext";
 import { db } from "../../firebaseconfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
+
 
 const ArtistDashboard = () => {
   const { currentUser } = useAuth();
@@ -71,16 +73,11 @@ const ArtistDashboard = () => {
   if (!artistData) {
     return <div className="h-screen flex items-center justify-center text-lg">Loading Dashboard...</div>;
   }
-=======
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
->>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
 
-<<<<<<< HEAD
       <main className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-7xl mx-auto">
           {/* Quick Links */}
@@ -99,7 +96,6 @@ import { Button } from "@/components/ui/button";
             </Button>
           </div>
 
-          {/* Welcome Section */}
           <div className="relative bg-white/90 backdrop-blur-sm p-8 rounded-3xl border border-purple-100 shadow-xl mb-8">
             <h1 className="font-serif text-4xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
               Welcome back, {artistData.name}
@@ -139,7 +135,6 @@ import { Button } from "@/components/ui/button";
             <p className="text-gray-600 mt-2">📍 {artistData.location || "Not provided"}</p>
             <p className="text-gray-600 mt-2">📞 {artistData.contact || "Not provided"}</p>
           </div>
-=======
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <Card className="border-glamour-gold/20 shadow-lg">
               <CardHeader>
@@ -255,7 +250,6 @@ import { Button } from "@/components/ui/button";
               ))}
             </CardContent>
           </Card>
->>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
         </div>
       </main>
 

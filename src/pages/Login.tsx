@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Mail, Lock } from "lucide-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseconfig";
+import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
+import { auth, db } from "../../firebaseconfig"; // Ensure you import the Firestore `db`
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,16 +21,54 @@ const Login = () => {
     setLoading(true);
 
     try {
+      // Sign in the user
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
+      const user = userCredential.user;
+
+      // Fetch user role from Firestore
+      const userDocRef = doc(db, "users", user.uid); // Assuming you store users in Firestore
+      const userDoc = await getDoc(userDocRef);
+
+      let role = "customer"; // Default to customer if role is not found
+      if (userDoc.exists()) {
+        role = userDoc.data().role; // Fetch role from Firestore document
+      }
+
       toast({
         title: "Login Successful",
-        description: "You have successfully signed in.",
+        description: `Welcome back, ${user.email}!`,
       });
 
-      navigate("/dashboard");
+      // Redirect user based on role
+      if (role === "artist") {
+        navigate("/dashboard/artist");
+      } else {
+        navigate("/dashboard/customer");
+      }
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : "An error occurred during sign up.";
+      let errorMessage = "An error occurred during login.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === "object" && error !== null && "code" in error) {
+        switch ((error as { code: string }).code) {
+          case "auth/invalid-email":
+            errorMessage = "Invalid email format.";
+            break;
+          case "auth/user-not-found":
+            errorMessage = "User not found. Please check your email.";
+            break;
+          case "auth/wrong-password":
+            errorMessage = "Incorrect password.";
+            break;
+          case "auth/too-many-requests":
+            errorMessage = "Too many failed attempts. Try again later.";
+            break;
+          default:
+            errorMessage = "Failed to log in. Please try again.";
+        }
+      }
+
       toast({
         title: "Login Failed",
         description: errorMessage,

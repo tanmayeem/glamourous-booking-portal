@@ -6,13 +6,13 @@ import { getStorage } from "firebase/storage";
 
  
 const firebaseConfig = {
-  apiKey: "AIzaSyCcEf6Jr2cgdOa0VcchrxCLYblZznwNacs",
-  authDomain: "glamconnect-41408.firebaseapp.com",
-  projectId: "glamconnect-41408",
-  storageBucket: "glamconnect-41408.firebasestorage.app",
-  messagingSenderId: "30806568854",
-  appId: "1:30806568854:web:ea7ef761177e298ca177b7",
-  measurementId: "G-YXBDWN3P2Z"
+  apiKey: "AIzaSyA5jR0yv8v3utMOPmOGlwIqRppbjiwQmJw",
+  authDomain: "glamconnect-c6286.firebaseapp.com",
+  projectId: "glamconnect-c6286",
+  storageBucket: "glamconnect-c6286.firebasestorage.app",
+  messagingSenderId: "55527924150",
+  appId: "1:55527924150:web:4ce396d98009127948e117",
+  measurementId: "G-L6EDB8YDLM"
 };
 
 const app = initializeApp(firebaseConfig);
