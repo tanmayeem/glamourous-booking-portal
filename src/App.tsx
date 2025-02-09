@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SearchArtists from "./pages/SearchArtists";
 import ArtistProfile from "./pages/ArtistProfile";
+import ArtistProfileEdit from "./pages/ArtistProfileEdit";
 import Booking from "./pages/Booking";
 import Masterclasses from "./pages/Masterclasses";
 import MasterclassDetails from "./pages/MasterclassDetails";
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/search" element={<SearchArtists />} />
             <Route path="/CustomerDashboard" element={<CustomerDashboard />} />
             <Route path="/artist-profile/:artistId" element={<ArtistProfile />} />
+            <Route path="/artist-profile/edit" element={<ArtistProfileEdit />} />
             <Route path="/booking/:artistId" element={<Booking />} />
             <Route path="/masterclasses" element={<Masterclasses />} />
             <Route path="/masterclasses/:id" element={<MasterclassDetails />} />
