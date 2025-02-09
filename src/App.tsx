@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +10,7 @@ import SearchArtists from "./pages/SearchArtists";
 import ArtistProfile from "./pages/ArtistProfile";
 import Booking from "./pages/Booking";
 import Masterclasses from "./pages/Masterclasses";
+import MasterclassDetails from "./pages/MasterclassDetails";
 import CreateMasterclass from "./pages/CreateMasterclass";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import ArtistDashboard from "./pages/ArtistDashboard";
@@ -21,31 +23,32 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <AuthProvider>
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/search" element={<SearchArtists />} />
-          <Route path="/CustomerDashboard" element={<CustomerDashboard />} />
-          <Route path="/artist-profile/:artistId" element={<ArtistProfile />} />
-          <Route path="/booking/:artistId" element={<Booking />} />
-          <Route path="/masterclasses" element={<Masterclasses />} />
-          <Route path="/create-masterclass" element={<CreateMasterclass />} />
-          <Route path="/dashboard" element={<ArtistDashboard />} />
-          <Route path="/masterclasses/create" element={<CreateMasterclass />} />
-          <Route path="/dashboard/customer" element={<CustomerDashboard />} />
-          <Route path="/dashboard/artist" element={<ArtistDashboard />} />
-          <Route path="/signup/customer" element={<CustomerSignup />} />
-          <Route path="/signup/artist" element={<ArtistSignup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/search" element={<SearchArtists />} />
+            <Route path="/CustomerDashboard" element={<CustomerDashboard />} />
+            <Route path="/artist-profile/:artistId" element={<ArtistProfile />} />
+            <Route path="/booking/:artistId" element={<Booking />} />
+            <Route path="/masterclasses" element={<Masterclasses />} />
+            <Route path="/masterclasses/:id" element={<MasterclassDetails />} />
+            <Route path="/create-masterclass" element={<CreateMasterclass />} />
+            <Route path="/dashboard" element={<ArtistDashboard />} />
+            <Route path="/masterclasses/create" element={<CreateMasterclass />} />
+            <Route path="/dashboard/customer" element={<CustomerDashboard />} />
+            <Route path="/dashboard/artist" element={<ArtistDashboard />} />
+            <Route path="/signup/customer" element={<CustomerSignup />} />
+            <Route path="/signup/artist" element={<ArtistSignup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
   </AuthProvider>
 );
 
