@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,8 +6,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Mail, Lock } from "lucide-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
-import { auth, db } from "../../firebaseconfig"; // Ensure you import the Firestore `db`
+import { doc, getDoc } from "firebase/firestore"; // Firestore functions
+import { auth, db } from "../../firebaseconfig"; // Ensure Firestore `db` is imported
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,37 +21,50 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // Sign in the user
+      // Sign in user
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      const uid = user.uid;
 
-      // Fetch user role from Firestore
-      const userDocRef = doc(db, "users", user.uid); // Assuming you store users in Firestore
-      const userDoc = await getDoc(userDocRef);
+      // Check if the user is an artist
+      const artistDocRef = doc(db, "artists", uid);
+      const artistDoc = await getDoc(artistDocRef);
 
-      let role = "customer"; // Default to customer if role is not found
-      if (userDoc.exists()) {
-        role = userDoc.data().role; // Fetch role from Firestore document
+      if (artistDoc.exists()) {
+        toast({
+          title: "Login Successful",
+          description: `Welcome back, ${user.email}! Redirecting to Artist Dashboard.`,
+        });
+        navigate("/dashboard/artist");
+        return;
       }
 
+      // Check if the user is a customer
+      const customerDocRef = doc(db, "customers", uid);
+      const customerDoc = await getDoc(customerDocRef);
+
+      if (customerDoc.exists()) {
+        toast({
+          title: "Login Successful",
+          description: `Welcome back, ${user.email}! Redirecting to Customer Dashboard.`,
+        });
+        navigate("/dashboard/customer");
+        return;
+      }
+
+      // Default redirect if role isn't found
       toast({
         title: "Login Successful",
-        description: `Welcome back, ${user.email}!`,
+        description: "Redirecting to default dashboard.",
       });
-
-      // Redirect user based on role
-      if (role === "artist") {
-        navigate("/dashboard/artist");
-      } else {
-        navigate("/dashboard/customer");
-      }
+      navigate("/dashboard/customer");
     } catch (error: unknown) {
       let errorMessage = "An error occurred during login.";
 
       if (error instanceof Error) {
         errorMessage = error.message;
       } else if (typeof error === "object" && error !== null && "code" in error) {
-        switch ((error as { code: string }).code) {
+        switch ((error as {code : string}).code) {
           case "auth/invalid-email":
             errorMessage = "Invalid email format.";
             break;
