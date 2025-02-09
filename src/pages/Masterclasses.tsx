@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
@@ -61,7 +62,16 @@ const Masterclasses = () => {
                 className="bg-white rounded-xl shadow-lg overflow-hidden group cursor-pointer"
                 onClick={() => navigate(`/masterclasses/${masterclass.id}`)}
               >
-                <div className="h-48 bg-gradient-glamour relative overflow-hidden">
+                <div className="h-48 relative overflow-hidden">
+                  {masterclass.coverPhotoUrl ? (
+                    <img
+                      src={masterclass.coverPhotoUrl}
+                      alt={masterclass.title}
+                      className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="h-full bg-gradient-glamour" />
+                  )}
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 
