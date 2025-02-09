@@ -3,6 +3,10 @@ import { Calendar, CreditCard, Heart, Star } from "lucide-react";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
 const CustomerDashboard = () => {
   return (
     <div className="min-h-screen bg-glamour-light">
@@ -23,6 +27,10 @@ const CustomerDashboard = () => {
               Book New Session
             </Button>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <Card className="border-glamour-gold/20 shadow-lg">
               <CardHeader className="pb-4">
@@ -39,6 +47,10 @@ const CustomerDashboard = () => {
                 </div>
               </CardContent>
             </Card>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
             <Card className="border-glamour-gold/20 shadow-lg">
               <CardHeader className="pb-4">
                 <CardTitle className="font-serif text-xl text-glamour-dark flex items-center gap-2">
@@ -61,6 +73,10 @@ const CustomerDashboard = () => {
                 </div>
               </CardContent>
             </Card>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
             <Card className="border-glamour-gold/20 shadow-lg">
               <CardHeader className="pb-4">
                 <CardTitle className="font-serif text-xl text-glamour-dark flex items-center gap-2">
@@ -87,6 +103,10 @@ const CustomerDashboard = () => {
               </CardContent>
             </Card>
           </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card className="border-glamour-gold/20 shadow-lg">
               <CardHeader>
@@ -119,6 +139,10 @@ const CustomerDashboard = () => {
                 ))}
               </CardContent>
             </Card>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
             <Card className="border-glamour-gold/20 shadow-lg">
               <CardHeader>
                 <CardTitle className="font-serif text-2xl text-glamour-dark flex items-center gap-2">
@@ -155,8 +179,16 @@ const CustomerDashboard = () => {
           </div>
         </div>
       </main>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
       <Footer />
     </div>
   );
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ca52fbe97e9890c18fe97c6c319942a7da0edea
 export default CustomerDashboard;

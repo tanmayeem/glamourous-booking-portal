@@ -204,6 +204,38 @@ const ArtistProfileEdit = () => {
               </form>
             </Form>
           </div>
+
+          {/* Services */}
+          <Card className="mb-8">
+            <CardHeader>
+              <h2 className="font-serif text-2xl text-glamour-dark">Services</h2>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4">
+                {[
+                  { name: "Bridal Makeup", price: "$300", duration: "2 hours" },
+                  { name: "Editorial Makeup", price: "$200", duration: "1.5 hours" },
+                  { name: "Special Event", price: "$150", duration: "1 hour" },
+                ].map((service) => (
+                  <div
+                    key={service.name}
+                    className="flex justify-between items-center p-4 rounded-lg border border-glamour-gold/20 hover:border-glamour-gold/40 transition-colors"
+                  >
+                    <div>
+                      <h3 className="font-medium text-glamour-dark">{service.name}</h3>
+                      <p className="text-sm text-glamour-dark/60">{service.duration}</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-serif text-xl text-glamour-dark">
+                        {service.price}
+                      </div>
+                      <Button variant="outline" size="sm">Book Now</Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </main>
 
