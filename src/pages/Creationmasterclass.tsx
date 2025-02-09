@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -12,12 +13,11 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import { Calendar as CalendarIcon, Clock, Users } from "lucide-react";
+import { Calendar as CalendarIcon, Clock, Users, Upload } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Navigation from "@/components/Navigation";
 import Footer from "../components/Footer";
 import imageCompression from "browser-image-compression";
-
 
 import { db, storage } from "../../firebaseconfig";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
@@ -28,6 +28,8 @@ const CreateMasterclass = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [coverPhoto, setCoverPhoto] = useState<File | null>(null);
+  const [coverPhotoPreview, setCoverPhotoPreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -37,6 +39,7 @@ const CreateMasterclass = () => {
     requirements: "",
     location: "",
     imageUrl: "",
+    coverPhotoUrl: "",
   });
 
   const navigate = useNavigate();
@@ -50,22 +53,14 @@ const CreateMasterclass = () => {
     }));
   };
 
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     setImage(file);
-  //     setImagePreview(URL.createObjectURL(file));
-  //   }
-  // };
-
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       try {
         const options = {
-          maxSizeMB: 1,  
-          maxWidthOrHeight: 1024,  
-          useWebWorker: true,  
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1024,
+          useWebWorker: true,
         };
         const compressedFile = await imageCompression(file, options);
         setImage(compressedFile);
@@ -75,6 +70,28 @@ const CreateMasterclass = () => {
         toast({
           title: "Error!",
           description: "Failed to compress the image. Please try again.",
+        });
+      }
+    }
+  };
+
+  const handleCoverPhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920, // Larger width for cover photos
+          useWebWorker: true,
+        };
+        const compressedFile = await imageCompression(file, options);
+        setCoverPhoto(compressedFile);
+        setCoverPhotoPreview(URL.createObjectURL(compressedFile));
+      } catch (error) {
+        console.error("Error compressing cover photo:", error);
+        toast({
+          title: "Error!",
+          description: "Failed to compress the cover photo. Please try again.",
         });
       }
     }
@@ -92,10 +109,18 @@ const CreateMasterclass = () => {
 
     try {
       let imageUrl = "";
+      let coverPhotoUrl = "";
+
       if (image) {
         const imageRef = ref(storage, `masterclasses/${image.name}`);
         const uploadTask = await uploadBytesResumable(imageRef, image);
         imageUrl = await getDownloadURL(uploadTask.ref);
+      }
+
+      if (coverPhoto) {
+        const coverPhotoRef = ref(storage, `masterclasses/covers/${coverPhoto.name}`);
+        const uploadTask = await uploadBytesResumable(coverPhotoRef, coverPhoto);
+        coverPhotoUrl = await getDownloadURL(uploadTask.ref);
       }
 
       await addDoc(collection(db, "masterclasses"), {
@@ -104,6 +129,7 @@ const CreateMasterclass = () => {
         duration: Number(formData.duration),
         capacity: Number(formData.capacity),
         imageUrl,
+        coverPhotoUrl,
         date: Timestamp.fromDate(date),
         createdAt: Timestamp.now(),
       });
@@ -164,13 +190,49 @@ const CreateMasterclass = () => {
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label>Upload Image</Label>
-                <div className="flex items-center gap-4">
-                  <Input type="file" accept="image/*" onChange={handleImageChange} />
-                  {imagePreview && (
-                    <img src={imagePreview} alt="Preview" className="w-20 h-20 rounded-lg shadow-md" />
-                  )}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Cover Photo</Label>
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <Input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handleCoverPhotoChange}
+                        className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-glamour-pink file:text-white hover:file:bg-glamour-pink/80"
+                      />
+                    </div>
+                    {coverPhotoPreview && (
+                      <div className="relative w-32 h-20 rounded-lg overflow-hidden">
+                        <img 
+                          src={coverPhotoPreview} 
+                          alt="Cover Preview" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Upload Image</Label>
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <Input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handleImageChange}
+                        className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-glamour-pink file:text-white hover:file:bg-glamour-pink/80"
+                      />
+                    </div>
+                    {imagePreview && (
+                      <img 
+                        src={imagePreview} 
+                        alt="Preview" 
+                        className="w-20 h-20 rounded-lg object-cover shadow-md"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -267,7 +329,6 @@ const CreateMasterclass = () => {
               <Button type="submit" className="w-full bg-gradient-glamour hover:opacity-90" disabled={loading}>
                 {loading ? "Creating..." : "Create Masterclass"}
               </Button>
-
             </form>
           </div>
         </div>
