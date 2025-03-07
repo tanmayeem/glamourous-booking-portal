@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import { Search } from "lucide-react";
@@ -5,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseconfig";  
+import { Link } from "react-router-dom";
 
 interface Artist {
   uid: string;
@@ -74,7 +76,7 @@ const SearchArtists = () => {
                         variant="outline"
                         className="border-glamour-gold text-glamour-dark hover:bg-glamour-gold/10"
                       >
-                        <a href="//artist-profile/:artistId"></a>
+                        <Link to={`/artist/${artist.uid}`}>View Profile</Link>
                       </Button>
                     </div>
                   </div>
